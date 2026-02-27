@@ -1,3 +1,5 @@
+import java.util.*;
+
 
 class UseCase1PalindromeCheckerApp{
     void display_welcome(){
@@ -49,6 +51,25 @@ class UseCase4PalindromeCheckerApp{
         System.out.println(ispalindrome);
     }
 }
+class UseCase5PalindromeCheckerApp {
+
+    Stack<Character> stack = new Stack<>();
+
+    void uc5check(String word) {
+        char[] ch = word.toCharArray();
+        boolean ispalindrome = false;
+        for (char c : word.toCharArray()) {
+            stack.push(c);
+        }
+        for (int i = 0; i < word.length(); i++) {
+            if (stack.pop() == ch[i]) {
+                ispalindrome = true;
+            }
+        }
+        System.out.println(ispalindrome);
+
+    }
+}
 
 public class PalindromeCheckerApp {
     public static void main(String[]args){
@@ -61,5 +82,7 @@ public class PalindromeCheckerApp {
         uc3.uc3check(wrd);
         UseCase4PalindromeCheckerApp uc4=new UseCase4PalindromeCheckerApp();
         uc4.uc4check(wrd);
+        UseCase5PalindromeCheckerApp uc5 = new UseCase5PalindromeCheckerApp();
+        uc5.uc5check(wrd);
     }
 }
