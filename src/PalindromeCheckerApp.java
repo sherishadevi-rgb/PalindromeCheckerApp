@@ -1,14 +1,10 @@
 import java.util.Stack;
-import java.util.Deque;
 import java.util.ArrayDeque;
+import java.util.Deque;
 
-interface PalindromeStrategy {
-    boolean check(String input);
-}
+class UseCase13PalindromeCheckerApp {
 
-class StackStrategy implements PalindromeStrategy {
-
-    public boolean check(String input) {
+    boolean stackMethod(String input) {
 
         Stack<Character> stack = new Stack<>();
 
@@ -17,23 +13,20 @@ class StackStrategy implements PalindromeStrategy {
         }
 
         for (int i = 0; i < input.length(); i++) {
-            if (input.charAt(i) != stack.pop()) {
+            if (!stack.isEmpty() && input.charAt(i) != stack.pop()) {
                 return false;
             }
         }
 
         return true;
     }
-}
 
-class DequeStrategy implements PalindromeStrategy {
-
-    public boolean check(String input) {
+    boolean dequeMethod(String input) {
 
         Deque<Character> deque = new ArrayDeque<>();
 
         for (int i = 0; i < input.length(); i++) {
-            deque.add(input.charAt(i));
+            deque.addLast(input.charAt(i));
         }
 
         while (deque.size() > 1) {
@@ -44,18 +37,21 @@ class DequeStrategy implements PalindromeStrategy {
 
         return true;
     }
-}
 
-class UseCase12PalindromeCheckerApp {
+    boolean twoPointerMethod(String input) {
 
-    private PalindromeStrategy strategy;
+        int start = 0;
+        int end = input.length() - 1;
 
-    UseCase12PalindromeCheckerApp(PalindromeStrategy strategy) {
-        this.strategy = strategy;
-    }
+        while (start < end) {
+            if (input.charAt(start) != input.charAt(end)) {
+                return false;
+            }
+            start++;
+            end--;
+        }
 
-    boolean uc12check(String input) {
-        return strategy.check(input);
+        return true;
     }
 }
 
@@ -65,15 +61,28 @@ public class PalindromeCheckerApp {
 
         String wrd = "madam";
 
-        UseCase12PalindromeCheckerApp uc12 =
-                new UseCase12PalindromeCheckerApp(new StackStrategy());
+        UseCase13PalindromeCheckerApp uc13 =
+                new UseCase13PalindromeCheckerApp();
 
-        System.out.println("Palindrome checker by UC12 (Stack): "
-                + uc12.uc12check(wrd));
+        long startTime;
+        long endTime;
 
-        uc12 = new UseCase12PalindromeCheckerApp(new DequeStrategy());
+        startTime = System.nanoTime();
+        boolean stackResult = uc13.stackMethod(wrd);
+        endTime = System.nanoTime();
+        System.out.println("Stack Method: " + stackResult +
+                " | Time: " + (endTime - startTime) + " ns");
 
-        System.out.println("Palindrome checker by UC12 (Deque): "
-                + uc12.uc12check(wrd));
+        startTime = System.nanoTime();
+        boolean dequeResult = uc13.dequeMethod(wrd);
+        endTime = System.nanoTime();
+        System.out.println("Deque Method: " + dequeResult +
+                " | Time: " + (endTime - startTime) + " ns");
+
+        startTime = System.nanoTime();
+        boolean twoPointerResult = uc13.twoPointerMethod(wrd);
+        endTime = System.nanoTime();
+        System.out.println("Two Pointer Method: " + twoPointerResult +
+                " | Time: " + (endTime - startTime) + " ns");
     }
 }
