@@ -1,27 +1,24 @@
-import java.util.*;
-class UseCase8PalindromeCheckerApp{
-    void uc8check(String input){
-        LinkedList<Character> list=new LinkedList<>();
-        for(char c:input.toCharArray()){
-            list.add(c);
-        }
+class UseCase9PalindromeCheckerApp{
+    boolean uc9check(String input,int start,int end){
         boolean isPalindrome=false;
-        while(list.size()>1){
-            if(list.getFirst()==list.getLast()){
-                isPalindrome=true;
-                break;
+        while(start<end) {
+            if (input.charAt(start) == input.charAt(end)) {
+                isPalindrome = true;
+
+                start = start + 1;
+                end = end - 1;
+                uc9check(input, start, end);
+
             }
         }
-        System.out.println(isPalindrome);
+        return isPalindrome;
     }
 }
 public class PalindromeCheckerApp{
-    public static void main(String[]args){
-        String wrd="madam" ;
-        UseCase8PalindromeCheckerApp uc8=new UseCase8PalindromeCheckerApp();
-        uc8.uc8check(wrd);
+    public static void main(String[] args) {
+        String wrd = "madam";
 
-
+        UseCase9PalindromeCheckerApp uc9 = new UseCase9PalindromeCheckerApp();
+        System.out.println("Palindrome checker by UC9: " + uc9.uc9check(wrd, 0, wrd.length() - 1));
     }
 }
-
