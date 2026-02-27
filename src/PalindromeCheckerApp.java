@@ -1,24 +1,30 @@
-class UseCase9PalindromeCheckerApp{
-    boolean uc9check(String input,int start,int end){
-        boolean isPalindrome=false;
-        while(start<end) {
-            if (input.charAt(start) == input.charAt(end)) {
-                isPalindrome = true;
+import java.util.*;
 
-                start = start + 1;
-                end = end - 1;
-                uc9check(input, start, end);
 
-            }
-        }
-        return isPalindrome;
+class UseCase10PalindromeCheckerApp{
+    public static boolean uc10check(String input) {
+        if (input == null) return false;
+        String normalized = input.toLowerCase().replaceAll("[^a-z0-9]", "");
+
+        String reversed = new StringBuilder(normalized).reverse().toString();
+
+        return normalized.equals(reversed);
     }
-}
-public class PalindromeCheckerApp{
-    public static void main(String[] args) {
-        String wrd = "madam";
 
-        UseCase9PalindromeCheckerApp uc9 = new UseCase9PalindromeCheckerApp();
-        System.out.println("Palindrome checker by UC9: " + uc9.uc9check(wrd, 0, wrd.length() - 1));
+}
+
+
+
+public class PalindromeCheckerApp{
+    public static void main(String[]args){
+
+        String test = "A man a plan a canal Panama";
+        UseCase10PalindromeCheckerApp uc10=new UseCase10PalindromeCheckerApp();
+        System.out.println("Palindrome Checker by UC10: "+uc10.uc10check(test));
+
+
+
+
+
     }
 }
